@@ -1,4 +1,5 @@
 # 🌍 WanderAI - AI Powered Travel Planner
+[Live demo](https://wander-ai-ten.vercel.app/)
 
 WanderAI is an intelligent and responsive web app that helps users generate personalized trip itineraries based on their destination, duration, budget, and travel preferences. Using modern UI components and AI logic, WanderAI offers an easy and enjoyable trip planning experience.
 
@@ -45,20 +46,16 @@ WanderAI is an intelligent and responsive web app that helps users generate pers
 
 ---
 
-## 📸 Screenshots
+## 📸 PDF View
 
 
-- **Home Page**  
-  (./public/4.pdf)
+- **Home Page**(./public/4.pdf)
 
-- **Trip Preferences Page**  
-  ![Preferences](./public/2.pdf)
+- **Trip Preferences Page**[Preferences](./public/2.pdf)
 
-- **Generated Trip Page**  
-  (./public/1.pdf)
+- **Generated Trip Page**(./public/1.pdf)
 
-- **My Trips Dashboard**  
-  (./public/3.pdf)
+- **My Trips Dashboard**./public/3.pdf)
 
 ---
 
@@ -88,7 +85,7 @@ VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
 ### 4. Run the App
 ```
 npm run dev
-The app will run on http://localhost:5173/.
+The app will run on http://localhost/.
 ```
 
 ## 📁 Folder Structure
