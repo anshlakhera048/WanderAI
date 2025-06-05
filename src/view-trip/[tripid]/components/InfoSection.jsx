@@ -58,7 +58,7 @@ function InfoSection({ trip }) {
           </div>
         </div>
 
-        <Button className="self-start md:self-auto">
+        <Button className="self-start md:self-auto" >
           <IoShareSocialSharp />
         </Button>
       </div>

@@ -34,12 +34,15 @@ function Header() {
   const GetUserProfile = (tokenInfo) => {
     setLoading(true);
     axios
-      .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenInfo?.access_token}`, {
-        headers: {
-          Authorization: `Bearer ${tokenInfo?.access_token}`,
-          Accept: "application/json",
-        },
-      })
+      .get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenInfo?.access_token}`,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenInfo?.access_token}`,
+            Accept: "application/json",
+          },
+        }
+      )
       .then((resp) => {
         console.log(resp.data);
         localStorage.setItem("user", JSON.stringify(resp.data));
@@ -57,26 +60,41 @@ function Header() {
 
   return (
     <>
-      <div className=" shadow-md flex justify-between items-center px-6 bg-purple-10">
-        <div className="flex">
-          <a href="/"><img src="/logoO.svg" alt="Logo" className="h-[60px] p-1 -px-5 items-baseline"/></a>
-        </div>
-        <div>
+      <header className="bg-white shadow-md">
+        <div className="max-w-screen-xl mx-auto flex justify-between items-center px-3 py-1 relative overflow-hidden">
+          {/* Logo */}
+          <div className="flex items-center">
+            <a href="/">
+              <img
+                src="/logoO.svg"
+                alt="Logo"
+                className="h-[60px] w-auto object-contain"
+              />
+            </a>
+          </div>
+
+          {/* User Actions */}
           {user ? (
-            <div className="flex gap-5 items-center">
+            <div className="flex gap-3 items-center right-0">
               <a href="/create-trip">
-              <Button variant="outline" className="rounded-full text-black">+ Create Trip</Button>
+                <Button variant="outline" className="rounded-full text-black">
+                  + Create Trip
+                </Button>
               </a>
               <a href="/my-trips">
-              <Button variant="outline" className="rounded-full text-black">My Trips</Button>
+                <Button variant="outline" className="rounded-full text-black">
+                  My Trips
+                </Button>
               </a>
               <Popover>
                 <PopoverTrigger asChild>
-                  <img
-                    src={user?.picture}
-                    className="h-[47px] w-[47px] rounded-full cursor-pointer"
-                    alt="User Avatar"
-                  />
+                  <div className="h-[40px] w-[40px] rounded-full overflow-hidden border cursor-pointer">
+                    <img
+                      src={user?.picture}
+                      alt="User Avatar"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                 </PopoverTrigger>
                 <PopoverContent>
                   <h2
@@ -85,7 +103,7 @@ function Header() {
                       googleLogout();
                       localStorage.clear();
                       window.location.reload();
-                      window.location.href = '/';
+                      window.location.href = "/";
                     }}
                   >
                     Logout
@@ -97,7 +115,7 @@ function Header() {
             <Button onClick={() => setOpenDialog(true)}>Sign In</Button>
           )}
         </div>
-      </div>
+      </header>
 
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent>
@@ -118,7 +136,6 @@ function Header() {
           </DialogHeader>
         </DialogContent>
       </Dialog>
-
     </>
   );
 }

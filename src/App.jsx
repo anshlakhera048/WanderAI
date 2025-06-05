@@ -9,9 +9,12 @@ function App() {
   return (
     <>
     {/* Hero */}
-    <div className=''>
-      <Hero/>
-    </div>
+
+      <div className=''>
+        <Hero/>
+      </div>
+
+
 
     </>
   )

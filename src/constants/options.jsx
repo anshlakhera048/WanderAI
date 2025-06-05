@@ -61,7 +61,7 @@ export const AI_PROMPT = `
 For hotels, include these exact fields:
   - hotelName
   - hotelAddress
-  - price(Value is must!)
+  - price(Strictly the price of hotel must be included with the respective currency)
   - hotelImageUrl
   - geoCoordinates
   - rating
@@ -74,7 +74,7 @@ For itinerary places, include these exact fields:
   - geoCoordinates
   - ticketPricing
   - timeTravel
-  - bestTime
+  - bestTime(best time means, the time which is best to visit the place, wheter Morning, afternoon, evening, Night etc)
 
 ❗If any value is not available, return it as an empty string "" but DO NOT remove the key.
 
@@ -83,7 +83,7 @@ For itinerary places, include these exact fields:
 📍TASK:
 Generate a detailed travel itinerary for the destination {location}, for a duration of {totalDays} days, tailored for {traveller} travellers and within a budget of {budget}.
 
-1. 🏨 Provide a list of hotel options with the exact fields above.
+1. 🏨 Provide a list of hotel options(Minimum 4 hotels must be there) with the exact fields above.
 2. 📅 Suggest a full day-wise itinerary (covering all {totalDays} days). For each day's plan, include places with the exact place fields listed above.
 3. 🎯 Use real locations, accurate or approximate prices, and appropriate visiting times.
 4. 🖼️ hotelImageUrl and placeImageUrl must be links to the most iconic or popular image for that hotel or place.
