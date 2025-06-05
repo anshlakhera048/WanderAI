@@ -2,7 +2,7 @@
 
 WanderAI is an intelligent and responsive web app that helps users generate personalized trip itineraries based on their destination, duration, budget, and travel preferences. Using modern UI components and AI logic, WanderAI offers an easy and enjoyable trip planning experience.
 
-![WanderAI Banner](./public/banner.png)
+![WanderAI Banner](./public/logoO.svg)
 
 ---
 
@@ -47,17 +47,18 @@ WanderAI is an intelligent and responsive web app that helps users generate pers
 
 ## 📸 Screenshots
 
-> Replace these with your actual screenshots  
-> Upload to `/public` or your GitHub repo
 
 - **Home Page**  
-  ![Home](./public/screenshot-home.png)
+  ![Home](./public/4.PDF)
 
 - **Trip Preferences Page**  
-  ![Preferences](./public/screenshot-preferences.png)
+  ![Preferences](./public/2.PDF)
+
+  - **Generated Trip Page**  
+  ![Generated Trip](./public/1.PDF)
 
 - **My Trips Dashboard**  
-  ![Dashboard](./public/screenshot-dashboard.png)
+  ![Dashboard](./public/3.PDF)
 
 ---
 
@@ -68,30 +69,25 @@ WanderAI is an intelligent and responsive web app that helps users generate pers
 ```bash
 git clone https://github.com/anshlakhera048/wanderai.git
 cd wanderai
-2. Install Dependencies
-bash
-Copy
-Edit
+
+### 2. Install Dependencies
+```bash
 npm install
-3. Setup Environment Variables
+
+### 3. Setup Environment Variables
 Create a .env file in the root and add:
 
-env
-Copy
-Edit
+env 
 VITE_GOOGLE_PLACE_API_KEY=your_google_places_api_key
 VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
-4. Run the App
-bash
-Copy
-Edit
+
+### 4. Run the App
+```bash
 npm run dev
 The app will run on http://localhost:5173/.
 
 📁 Folder Structure
-bash
-Copy
-Edit
+```bash
 wanderai/
 ├── public/                 # Static assets
 ├── src/
@@ -103,6 +99,7 @@ wanderai/
 ├── .env                    # Environment Variables
 ├── package.json            # NPM Dependencies
 └── README.md               # Project Readme
+
 💡 Future Improvements
  AI-enhanced hotel/food recommendations
 
