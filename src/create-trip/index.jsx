@@ -5,7 +5,7 @@ import { AI_PROMPT, SelectBudgetOptions } from "@/constants/options";
 import { SelectTravellersList } from "@/constants/options";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { chatSession } from "@/services/AImodal";
+import { chatSession } from "@/services/AIModal";
 import { AiOutlineLoading } from "react-icons/ai";
 import {
   Dialog,
