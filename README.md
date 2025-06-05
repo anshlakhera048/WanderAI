@@ -49,16 +49,16 @@ WanderAI is an intelligent and responsive web app that helps users generate pers
 
 
 - **Home Page**  
-  ![Home](./public/4.PDF)
+  ![Home](./public/4.pdf)
 
 - **Trip Preferences Page**  
-  ![Preferences](./public/2.PDF)
+  ![Preferences](./public/2.pdf)
 
-  - **Generated Trip Page**  
-  ![Generated Trip](./public/1.PDF)
+- **Generated Trip Page**  
+  ![Generated Trip](./public/1.pdf)
 
 - **My Trips Dashboard**  
-  ![Dashboard](./public/3.PDF)
+  ![Dashboard](./public/3.pdf)
 
 ---
 
@@ -68,7 +68,7 @@ WanderAI is an intelligent and responsive web app that helps users generate pers
 
 ```bash
 git clone https://github.com/anshlakhera048/wanderai.git
-cd wanderai
+cd wanderai```
 
 ### 2. Install Dependencies
 ```bash
