@@ -51,7 +51,7 @@ WanderAI is an intelligent and responsive web app that helps users generate pers
 
 - **Home Page**(./public/4.pdf)
 
-- **Trip Preferences Page**[Preferences](./public/2.pdf)
+- [**Trip Preferences Page**](./public/2.pdf)
 
 - **Generated Trip Page**(./public/1.pdf)
 
