@@ -66,30 +66,34 @@ WanderAI is an intelligent and responsive web app that helps users generate pers
 
 ### 1. Clone the Repo
 
-bash
+```
 git clone https://github.com/anshlakhera048/wanderai.git
 cd wanderai
+```
 
 ### 2. Install Dependencies
 
-bash
+```
 npm install
+```
 
 ### 3. Setup Environment Variables
 Create a .env file in the root and add:
 
-env 
+```
 VITE_GOOGLE_PLACE_API_KEY=your_google_places_api_key
 VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
+```
 
 ### 4. Run the App
-bash
+```
 npm run dev
 The app will run on http://localhost:5173/.
+```
 
-📁 Folder Structure
+##📁 Folder Structure
 
-bash
+```
 wanderai/
 ├── public/                 # Static assets
 ├── src/
@@ -101,8 +105,9 @@ wanderai/
 ├── .env                    # Environment Variables
 ├── package.json            # NPM Dependencies
 └── README.md               # Project Readme
+```
 
-💡 Future Improvements
+##💡 Future Improvements
  AI-enhanced hotel/food recommendations
 
  Editable itinerary steps
@@ -113,9 +118,9 @@ wanderai/
 
  Export itinerary to PDF
 
-🙋‍♂️ Author
+##🙋‍♂️ Author
 Made with ❤️ by Ansh Lakhera
 Proudly built as a passion project to make travel planning smarter, easier, and more enjoyable.
 
-📜 License
+##📜 License
 This project is licensed under the MIT License – see the LICENSE file for details.
