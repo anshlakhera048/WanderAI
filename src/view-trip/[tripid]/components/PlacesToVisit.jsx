@@ -33,8 +33,8 @@ function PlacesToVisit({ trip }) {
                   placeArray.map((place, idx) => (
                     <div key={idx}>
                       <h2 className="text-sm sm:text-md font-semibold text-blue-600 mb-1">
-                        <span className="italic">Best time to visit:</span>{" "}
-                        {place.timeTravel}
+                        <span className="font-semibold">Best time to visit :</span>{" "}
+                        {place.bestTime}
                       </h2>
                       <PlaceCardItem place={place} trip={trip} />
                     </div>

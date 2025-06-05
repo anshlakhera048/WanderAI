@@ -40,15 +40,19 @@ function PlaceCardItem({ place, trip }) {
         <div>
           <h2 className="font-bold text-md sm:text-lg">{place.placeName}</h2>
           <p className="text-gray-600 text-sm mt-1">{place.placeDetails}</p>
+          <h2 className="text-sm  text-gray-600 mt-2">
+            Time to Travel : {place.timeTravel}
+          </h2>
           <h2 className="text-sm font-semibold text-gray-600 mt-2">
             Cost: {place.ticketPricing}
           </h2>
+          
         </div>
 
         <Link to={googleMapsUrl} target="_blank" rel="noopener noreferrer">
-          <div className="flex items-center gap-2 py-2 px-3 bg-cyan-100 rounded-xl w-fit mt-3 hover:bg-cyan-200">
-            <FaMapLocationDot className="text-cyan-600 text-xl" />
-            <h2 className="text-sm font-medium text-black">Location</h2>
+          <div className="flex items-center gap-2 py-2 px-3 bg-blue-500 rounded-xl w-fit mt-3 hover:bg-blue-600">
+            <FaMapLocationDot className="text-white text-xl" />
+            <h2 className="text-sm font-medium text-white">Location</h2>
           </div>
         </Link>
       </div>
