@@ -66,12 +66,13 @@ WanderAI is an intelligent and responsive web app that helps users generate pers
 
 ### 1. Clone the Repo
 
-```bash
-git clone https://github.com/anshlakhera048/wanderai.git
+bash
+```git clone https://github.com/anshlakhera048/wanderai.git
 cd wanderai```
 
 ### 2. Install Dependencies
-```bash
+
+bash
 npm install
 
 ### 3. Setup Environment Variables
