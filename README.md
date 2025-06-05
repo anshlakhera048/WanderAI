@@ -49,16 +49,16 @@ WanderAI is an intelligent and responsive web app that helps users generate pers
 
 
 - **Home Page**  
-  ![Home](./public/4.pdf)
+  (./public/4.pdf)
 
 - **Trip Preferences Page**  
   ![Preferences](./public/2.pdf)
 
 - **Generated Trip Page**  
-  ![Generated Trip](./public/1.pdf)
+  (./public/1.pdf)
 
 - **My Trips Dashboard**  
-  ![Dashboard](./public/3.pdf)
+  (./public/3.pdf)
 
 ---
 
@@ -91,7 +91,7 @@ npm run dev
 The app will run on http://localhost:5173/.
 ```
 
-##📁 Folder Structure
+## 📁 Folder Structure
 
 ```
 wanderai/
@@ -107,7 +107,7 @@ wanderai/
 └── README.md               # Project Readme
 ```
 
-##💡 Future Improvements
+## 💡 Future Improvements
  AI-enhanced hotel/food recommendations
 
  Editable itinerary steps
@@ -118,9 +118,9 @@ wanderai/
 
  Export itinerary to PDF
 
-##🙋‍♂️ Author
+## 🙋‍♂️ Author
 Made with ❤️ by Ansh Lakhera
 Proudly built as a passion project to make travel planning smarter, easier, and more enjoyable.
 
-##📜 License
+## 📜 License
 This project is licensed under the MIT License – see the LICENSE file for details.
