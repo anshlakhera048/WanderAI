@@ -35,7 +35,7 @@ function InfoSection({ trip }) {
   return (
     <div className="w-full">
       <img
-        src={photoUrl ? photoUrl : randomImage}
+        src={photoUrl || randomImage}
         className="h-[200px] sm:h-[300px] md:h-[400px] w-full object-cover rounded-xl border object-bottom"
         alt="Location"
       />
