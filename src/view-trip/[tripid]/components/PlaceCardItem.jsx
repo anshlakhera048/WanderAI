@@ -32,7 +32,7 @@ function PlaceCardItem({ place, trip }) {
     <div className="rounded-xl p-3 mt-2 flex flex-col sm:flex-row gap-4 hover:scale-[1.02] transition-all cursor-pointer hover:shadow-md border">
       <img
         src={photoUrl ? photoUrl : '/imgg.png'}
-        className="w-full sm:w-[140px] h-[180px] object-cover rounded-xl"
+        className="w-full sm:w-[180px] sm:h-[180px] object-cover rounded-xl"
         alt={place.placeName}
       />
 
