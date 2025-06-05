@@ -15,10 +15,10 @@ function Hotels({ trip }) {
   ];
 
   return (
-    <div>
-      <h2 className="font-bold text-2xl mt-3">Hotel Recommendations</h2>
+    <div className="mt-8">
+      <h2 className="font-bold text-xl sm:text-2xl mb-4">Hotel Recommendations</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-5 border p-3 rounded-xl bg-blue-50">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-4 rounded-xl bg-blue-50 border">
         {trip?.tripData?.hotels?.map((hotel, index) => {
           const randomImage = hotelImages[Math.floor(Math.random() * hotelImages.length)];
 

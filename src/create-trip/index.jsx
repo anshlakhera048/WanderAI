@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { Input } from "@/components/ui/input";
-import { AI_PROMPT, SelectBudgetOptions } from "@/constants/options";
-import { SelectTravellersList } from "@/constants/options";
+import { AI_PROMPT, SelectBudgetOptions, SelectTravellersList } from "@/constants/options";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { chatSession } from "@/services/AIModal";
@@ -12,8 +11,6 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -24,40 +21,32 @@ import { useNavigate } from "react-router-dom";
 
 function CreateTrip() {
   const [place, setPlace] = useState();
-
-  const [formData, setFormData] = useState([]);
-
+  const [formData, setFormData] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
-
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
+
   const handleInputChange = (name, value) => {
-    if (name == "noOfDays") {
+    if (name === "noOfDays") {
       if (value > 6) {
-        console.log("Please enter less than 6 days");
+        toast("Please select a maximum of 6 days");
         return;
       }
       if (!Number.isInteger(Number(value))) {
-        console.log("Please enter a whole number (no decimals allowed)");
+        toast("Please enter a whole number");
         return;
       }
     }
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // useEffect() is a react hook, used to load the data and we can see the changes in data with the change in input
   useEffect(() => {
     console.log(formData);
   }, [formData]);
 
   const login = useGoogleLogin({
-    onSuccess: (codeResp) => GetUserProfile(codeResp),
-    onError: (error) => console.error(error),
+    onSuccess: (tokenResponse) => fetchUserProfile(tokenResponse),
+    onError: (error) => console.error("Login Failed:", error),
   });
 
   const OnGenerateTrip = async () => {
@@ -67,78 +56,82 @@ function CreateTrip() {
       return;
     }
 
-    if (
-      formData?.noOfDays > 6 ||
-      !formData?.location ||
-      !formData?.traveller ||
-      !formData?.budget
-    ) {
-      toast("Please fill all the fields correctly");
+    const { noOfDays, location, traveller, budget } = formData;
+    if (!noOfDays || !location || !traveller || !budget) {
+      toast("Please fill all fields correctly");
       return;
     }
+
     setLoading(true);
-    const FINAL_PROMPT = AI_PROMPT.replace(
-      "{location}",
-      formData?.location?.label
-    )
-      .replace("{totalDays}", formData?.noOfDays)
-      .replace("{traveller}", formData?.traveller)
-      .replace("{budget}", formData?.budget)
-      .replace("{totalDays}", formData?.noOfDays);
+    const FINAL_PROMPT = AI_PROMPT
+      .replaceAll("{location}", location.label)
+      .replaceAll("{totalDays}", noOfDays)
+      .replaceAll("{traveller}", traveller)
+      .replaceAll("{budget}", budget);
 
-    const result = await chatSession.sendMessage(FINAL_PROMPT);
-    console.log("--", result?.response?.text());
-
-    setLoading(false);
-    SaveAiTrip(result?.response?.text());
+    try {
+      const result = await chatSession.sendMessage(FINAL_PROMPT);
+      const text = result?.response?.text();
+      console.log("-- AI Response --", text);
+      SaveAiTrip(text);
+    } catch (error) {
+      toast.error("Failed to generate trip");
+      console.error("Chat API error:", error);
+      setLoading(false);
+    }
   };
 
-  const SaveAiTrip = async (TripData) => {
-    // Save the trip data to Firestore
-    setLoading(true);
-    const user = JSON.parse(localStorage.getItem("user"));
-    const docID = Date.now().toString();
+  const SaveAiTrip = async (tripData) => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const docID = Date.now().toString();
 
-    await setDoc(doc(db, "PlannerAI", docID), {
-      userSelection: formData,
-      tripData: JSON.parse(TripData),
-      userEmail: user?.email,
-      id: docID,
-    });
-    setLoading(false);
-    navigate("/view-trip/" + docID);
+      await setDoc(doc(db, "PlannerAI", docID), {
+        userSelection: formData,
+        tripData: JSON.parse(tripData),
+        userEmail: user?.email,
+        id: docID,
+      });
+
+      navigate("/view-trip/" + docID);
+    } catch (error) {
+      toast.error("Error saving trip");
+      console.error("Firestore error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // npm i axios
-  const GetUserProfile = (tokenInfo) => {
+  const fetchUserProfile = (tokenInfo) => {
     axios
-      .get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${tokenInfo?.access_token}`,
-        {
-          headers: {
-            Authorization: `Bearer ${tokenInfo?.access_token}`,
-            Accept: "Application/json",
-          },
-          // IN console -> using localStorage somehow (to see the user data after Authenticating from OAuth 2.0)
-        }
-      )
-      .then((resp) => {
-        console.log(resp);
-        localStorage.setItem("user", JSON.stringify(resp.data));
+      .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenInfo?.access_token}`, {
+        headers: {
+          Authorization: `Bearer ${tokenInfo?.access_token}`,
+          Accept: "application/json",
+        },
+      })
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data));
         setOpenDialog(false);
-        OnGenerateTrip(true);
+        OnGenerateTrip();
+      })
+      .catch((err) => {
+        console.error("Google user info error:", err);
+        toast.error("Failed to fetch Google profile");
       });
   };
 
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">
       <h2 className="font-bold text-3xl">Tell us your Travel Preferences</h2>
-      <p className="mt-3 text-gray-500 text-xl">Tell us your destination, trip duration, budget, and travel companions to plan your perfect trip</p>
+      <p className="mt-3 text-gray-500 text-xl">
+        Tell us your destination, trip duration, budget, and travel companions to plan your perfect trip.
+      </p>
+
       <div className="mt-20 flex flex-col gap-9">
+        {/* Location */}
         <div>
-          <h2 className="text-xl my-3 font-medium">
-            What is your Destination of your Choice?
-          </h2>
+          <h2 className="text-xl my-3 font-medium">What is your Destination of your Choice?</h2>
           <GooglePlacesAutocomplete
             apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
             selectProps={{
@@ -151,17 +144,19 @@ function CreateTrip() {
           />
         </div>
 
+        {/* No. of Days */}
         <div className="mt-10">
-          <h2 className="text-xl my-3 font-medium">Select number of Days :</h2>
+          <h2 className="text-xl my-3 font-medium">Select number of Days:</h2>
           <Input
             type="number"
-            min="0"
+            min="1"
             max="6"
             placeholder="Ex. 3"
             onChange={(e) => handleInputChange("noOfDays", e.target.value)}
           />
         </div>
 
+        {/* Budget */}
         <div>
           <h2 className="text-xl my-3 font-medium">What is your Budget?</h2>
           <div className="grid grid-cols-3 gap-5 mt-5">
@@ -169,13 +164,9 @@ function CreateTrip() {
               <div
                 key={index}
                 onClick={() => handleInputChange("budget", item.title)}
-                // If you want to add a border or shadow to the selected item use { `${formData?.budget==item.title&& 'shadow-lg border'}`}
-                className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg
-                                ${
-                                  formData?.budget == item.title &&
-                                  "shadow-lg border-black"
-                                }
-                            `}
+                className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg ${
+                  formData?.budget === item.title ? "shadow-lg border-black" : ""
+                }`}
               >
                 <h2 className="text-4xl">{item.icon}</h2>
                 <h2 className="font-bold text-lg">{item.title}</h2>
@@ -185,21 +176,17 @@ function CreateTrip() {
           </div>
         </div>
 
+        {/* Traveller */}
         <div>
-          <h2 className="text-xl my-4 font-medium">
-            Who is your Companion on your Trip?
-          </h2>
+          <h2 className="text-xl my-4 font-medium">Who is your Companion on your Trip?</h2>
           <div className="grid grid-cols-3 gap-5 mt-5">
             {SelectTravellersList.map((item, index) => (
               <div
                 key={index}
                 onClick={() => handleInputChange("traveller", item.people)}
-                className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg
-                                ${
-                                  formData?.traveller == item.people &&
-                                  "shadow-lg border-black"
-                                }
-                            `}
+                className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg ${
+                  formData?.traveller === item.people ? "shadow-lg border-black" : ""
+                }`}
               >
                 <h2 className="text-4xl">{item.icon}</h2>
                 <h2 className="font-bold text-lg">{item.title}</h2>
@@ -209,30 +196,28 @@ function CreateTrip() {
           </div>
         </div>
       </div>
-      <div className="my-3 justify-end flex">
+
+      {/* Generate Button */}
+      <div className="my-6 flex justify-end">
         <Button disabled={loading} onClick={OnGenerateTrip}>
-          {loading ? (
-            <AiOutlineLoading className="animate-spin h-7 w-7" />
-          ) : (
-            "Generate Trip"
-          )}
+          {loading ? <AiOutlineLoading className="animate-spin h-7 w-7" /> : "Generate Trip"}
         </Button>
       </div>
+
+      {/* Dialog */}
       <Dialog open={openDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogDescription>
-              <img src="/logo.svg" />
-              <h2 className="text-2xl font-bold text-lg mt-7">
-                Sign in with Google
-              </h2>
-              <p>Sign in to the App with Google securely</p>
+              <img src="/logo.svg" alt="App Logo" className="mx-auto mb-4" />
+              <h2 className="text-2xl font-bold mt-4 text-center">Sign in with Google</h2>
+              <p className="text-center text-gray-600">Sign in securely to access personalized trips</p>
               <Button
                 disabled={loading}
                 onClick={login}
-                className="w-full mt-5 flex gap-4 items-center"
+                className="w-full mt-5 flex gap-4 items-center justify-center"
               >
-                <FcGoogle className="h-7 w-7" />
+                <FcGoogle className="h-6 w-6" />
                 Sign in with Google
               </Button>
             </DialogDescription>
