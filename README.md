@@ -67,8 +67,8 @@ WanderAI is an intelligent and responsive web app that helps users generate pers
 ### 1. Clone the Repo
 
 bash
-```git clone https://github.com/anshlakhera048/wanderai.git
-cd wanderai```
+git clone https://github.com/anshlakhera048/wanderai.git
+cd wanderai
 
 ### 2. Install Dependencies
 
@@ -83,12 +83,13 @@ VITE_GOOGLE_PLACE_API_KEY=your_google_places_api_key
 VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
 
 ### 4. Run the App
-```bash
+bash
 npm run dev
 The app will run on http://localhost:5173/.
 
 📁 Folder Structure
-```bash
+
+bash
 wanderai/
 ├── public/                 # Static assets
 ├── src/
