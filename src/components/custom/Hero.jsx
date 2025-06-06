@@ -26,7 +26,7 @@ function Hero() {
         <Button className="">Get Started</Button>
       </Link>
 
-      <img src="/landing.png" className="w-full max-w-md sm:max-w-xl h-auto" />
+      <img src="/v.svg" className="w-full max-w-md sm:max-w-xl h-auto" />
 
       <Footer />
     </div>
