@@ -5,14 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { GoogleLogin, googleLogout, useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
@@ -66,7 +59,7 @@ function Header() {
           <div className="flex items-center">
             <a href="/">
               <img
-                src="/logoO.svg"
+                src="/new.svg"
                 alt="Logo"
                 className="h-[60px] w-auto object-contain"
               />
@@ -117,25 +110,26 @@ function Header() {
         </div>
       </header>
 
-      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogDescription className="flex flex-col items-center justify-center text-center">
-              <img src="/logoO.svg" alt="Logo" className="h-[40px]" />
-              <h2 className="text-2xl font-bold mt-5">Sign in with Google</h2>
-              <p>Sign in to the App with Google Authentication securely</p>
-              <Button
-                disabled={loading}
-                onClick={login}
-                className=" mt-4 flex gap-4 items-center justify-center"
-              >
-                <FcGoogle className="h-[20px]" />
-                Sign in with Google
-              </Button>
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+        <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="sr-only">Sign in Dialog</DialogTitle> {/* Required for accessibility */}
+              <DialogDescription className="flex flex-col items-center justify-center text-center">
+                <img src="/new.svg" alt="Logo" className="h-[40px]" />
+                <h2 className="text-2xl font-bold mt-5">Sign in with Google</h2>
+                <p>Sign in to the App with Google Authentication securely</p>
+                <Button
+                  disabled={loading}
+                  onClick={login}
+                  className=" mt-4 flex gap-4 items-center justify-center"
+                >
+                  <FcGoogle className="h-[20px]" />
+                  Sign in with Google
+                </Button>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
     </>
   );
 }
