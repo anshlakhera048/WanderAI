@@ -79,7 +79,8 @@ Create a .env file in the root and add:
 
 ```
 VITE_GOOGLE_PLACE_API_KEY=your_google_places_api_key
-VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
+VITE_GOOGLE_AUTH_CLIENT_ID=your_google_oauth_client_id
+VITE_GOOGLE_GENAI_API_KEY=your_google_generative_ai_api_key
 ```
 
 ### 4. Run the App

@@ -16,21 +16,29 @@ function Hotels({ trip }) {
 
   return (
     <div className="mt-8">
-      <h2 className="font-bold text-xl sm:text-2xl mb-4">Hotel Recommendations</h2>
+      <h2 className="font-bold text-xl sm:text-2xl mb-4">
+        Hotel Recommendations
+      </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-4 rounded-xl bg-blue-50 border">
-        {trip?.tripData?.hotels?.map((hotel, index) => {
-          const randomImage = hotelImages[Math.floor(Math.random() * hotelImages.length)];
-
-          return (
-            <HotelCardItem
-              key={hotel?.id || index}
-              hotel={hotel}
-              index={index}
-              randomImage={randomImage}
-            />
-          );
-        })}
+        {Array.isArray(trip?.tripData?.hotelOptions) ? (
+          trip.tripData.hotelOptions.map((hotel, index) => {
+            const randomImage =
+              hotelImages[Math.floor(Math.random() * hotelImages.length)];
+            return (
+              <HotelCardItem
+                key={hotel?.id || index}
+                hotel={hotel}
+                index={index}
+                randomImage={randomImage}
+              />
+            );
+          })
+        ) : (
+          <p className="text-gray-600 text-sm">
+            No hotel recommendations found
+          </p>
+        )}
       </div>
     </div>
   );

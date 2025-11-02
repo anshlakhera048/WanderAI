@@ -54,11 +54,16 @@ export const SelectBudgetOptions = [
 
 export const AI_PROMPT = `
 🔒 JSON FORMAT CONSTRAINTS (READ CAREFULLY):
-- The output must be a valid JSON object.
+- The output must be a valid JSON object with this EXACT structure:
+{
+  "hotelOptions": [...],
+  "itinerary": [...]
+}
+
 - DO NOT change, rename, skip, omit, or reformat the following field names.
 - These fields MUST BE PRESENT and must appear in this structure and casing every time.
 
-For hotels, include these exact fields:
+For hotels in hotelOptions array, include these exact fields:
   - hotelName
   - hotelAddress
   - price(Strictly the price of hotel must be included with the respective currency)
@@ -67,14 +72,19 @@ For hotels, include these exact fields:
   - rating
   - description
 
-For itinerary places, include these exact fields:
+For itinerary, it MUST be an ARRAY with each day as an object containing:
+  - day (e.g., "Day 1", "Day 2", etc.)
+  - plan (an ARRAY of places to visit)
+  - bestTimeToVisit (optional, overall best time for the day)
+
+For each place in the plan array, include these exact fields:
   - placeName
   - placeDetails
   - placeImageUrl
   - geoCoordinates
   - ticketPricing
   - timeTravel
-  - bestTime(best time means, the time which is best to visit the place, wheter Morning, afternoon, evening, Night etc)
+  - bestTime (best time means, the time which is best to visit the place, whether Morning, afternoon, evening, Night etc)
 
 ❗If any value is not available, return it as an empty string "" but DO NOT remove the key.
 
@@ -83,11 +93,13 @@ For itinerary places, include these exact fields:
 📍TASK:
 Generate a detailed travel itinerary for the destination {location}, for a duration of {totalDays} days, tailored for {traveller} travellers and within a budget of {budget}.
 
-1. 🏨 Provide a list of hotel options(Minimum 4 hotels must be there) with the exact fields above.
+1. 🏨 Provide a list of hotel options (Minimum 4 hotels must be there) with the exact fields above.
 2. 📅 Suggest a full day-wise itinerary (covering all {totalDays} days). For each day's plan, include places with the exact place fields listed above.
 3. 🎯 Use real locations, accurate or approximate prices, and appropriate visiting times.
 4. 🖼️ hotelImageUrl and placeImageUrl must be links to the most iconic or popular image for that hotel or place.
 5. 📌 geoCoordinates must be in "latitude,longitude" format.
+
+CRITICAL: The itinerary field MUST be an ARRAY, not an object with day1, day2 keys.
 
 Respond ONLY in the required JSON format. Never add explanations or comments.
 `;

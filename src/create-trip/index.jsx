@@ -77,10 +77,22 @@ function CreateTrip() {
       const result = await chatSession.sendMessage(FINAL_PROMPT);
       const text = result?.response?.text();
       console.log("-- AI Response --", text);
+      
+      if (!text) {
+        throw new Error("AI did not return any response");
+      }
+      
       SaveAiTrip(text);
     } catch (error) {
-      toast.error("Failed to generate trip");
       console.error("Chat API error:", error);
+      
+      // Check if it's an API key issue
+      if (error?.message?.includes("API key") || error?.message?.includes("GENAI_API_KEY")) {
+        toast.error("API key not configured. Please check your .env file.");
+      } else {
+        toast.error("Failed to generate trip. Please try again.");
+      }
+      
       setLoading(false);
     }
   };
