@@ -16,9 +16,9 @@ const generationConfig = {
   responseMimeType: "application/json",
 };
 
-// ✅ use latest v1 model
+// ✅ use latest verified model
 const model = genAI.getGenerativeModel({
-  model: "models/gemini-2.0-flash", // faster, supported, and available
+  model: "models/gemini-2.5-flash",
   generationConfig,
 });
 

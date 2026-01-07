@@ -77,22 +77,22 @@ function CreateTrip() {
       const result = await chatSession.sendMessage(FINAL_PROMPT);
       const text = result?.response?.text();
       console.log("-- AI Response --", text);
-      
+
       if (!text) {
         throw new Error("AI did not return any response");
       }
-      
+
       SaveAiTrip(text);
     } catch (error) {
       console.error("Chat API error:", error);
-      
+
       // Check if it's an API key issue
       if (error?.message?.includes("API key") || error?.message?.includes("GENAI_API_KEY")) {
         toast.error("API key not configured. Please check your .env file.");
       } else {
-        toast.error("Failed to generate trip. Please try again.");
+        toast.error("Failed to generate trip. " + (error?.message || "Please try again."));
       }
-      
+
       setLoading(false);
     }
   };
@@ -192,11 +192,10 @@ function CreateTrip() {
               <div
                 key={index}
                 onClick={() => handleInputChange("budget", item.title)}
-                className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg transition ${
-                  formData?.budget === item.title
+                className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg transition ${formData?.budget === item.title
                     ? "shadow-lg border-black"
                     : ""
-                }`}
+                  }`}
               >
                 <h2 className="text-3xl">{item.icon}</h2>
                 <h2 className="font-bold text-base sm:text-lg">{item.title}</h2>
@@ -216,11 +215,10 @@ function CreateTrip() {
               <div
                 key={index}
                 onClick={() => handleInputChange("traveller", item.people)}
-                className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg transition ${
-                  formData?.traveller === item.people
+                className={`p-4 cursor-pointer border rounded-lg hover:shadow-lg transition ${formData?.traveller === item.people
                     ? "shadow-lg border-black"
                     : ""
-                }`}
+                  }`}
               >
                 <h2 className="text-3xl">{item.icon}</h2>
                 <h2 className="font-bold text-base sm:text-lg">{item.title}</h2>
