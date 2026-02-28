@@ -45,7 +45,7 @@ function UserTripCardItem({ trip, onDelete }) {
     placeImages[Math.floor(Math.random() * placeImages.length)];
 
   return (
-    <div className="relative border rounded-xl p-3 hover:scale-105 transition-all w-full max-w-sm mx-auto">
+    <div className="relative border border-primary/20 dark:border-accent/20 rounded-xl p-3 hover:scale-[1.03] transition-all w-full max-w-sm mx-auto bg-white dark:bg-[#23283a] shadow-sm group">
       {/* 🗑️ Delete Icon */}
       <button
         onClick={(e) => {
@@ -61,26 +61,27 @@ function UserTripCardItem({ trip, onDelete }) {
             onDelete(trip.id);
           }
         }}
-        className="absolute bottom-3 right-3 bg-white hover:bg-red-100 p-2 rounded-full shadow"
+        className="absolute bottom-3 right-3 bg-white dark:bg-[#181c24] hover:bg-accent/20 dark:hover:bg-accent/30 p-2 rounded-full shadow border border-accent/30 dark:border-accent/50 transition"
         title="Delete trip"
       >
-        <RiDeleteBinLine className="w-5 h-5 text-red-500" />
+        <RiDeleteBinLine className="w-5 h-5 text-accent dark:text-accent group-hover:text-primary dark:group-hover:text-accent transition" />
       </button>
 
       <Link to={`/view-trip/${trip?.id}`}>
-        <img
-          src={photoUrl || randomImage}
-          onError={(e) => (e.target.src = randomImage)}
-          className="object-cover rounded-xl w-full h-40 sm:h-52"
-          alt={`Trip to ${trip?.userSelection?.location?.label || "unknown"}`}
-        />
+        <div className="w-full aspect-[16/10] rounded-xl overflow-hidden border border-primary/10">
+          <img
+            src={photoUrl || randomImage}
+            onError={(e) => (e.target.src = randomImage)}
+            className="object-cover w-full h-full"
+            alt={`Trip to ${trip?.userSelection?.location?.label || "unknown"}`}
+          />
+        </div>
         <div className="mt-3 px-1">
-          <h2 className="font-bold text-base sm:text-lg text-black truncate">
+          <h2 className="font-bold text-base sm:text-lg text-primary dark:text-accent truncate">
             {trip?.userSelection?.location?.label}
           </h2>
-          <h2 className="text-sm sm:text-base text-gray-500">
-            {trip?.userSelection?.noOfDays} Days trip with a{" "}
-            {trip?.userSelection?.budget} Budget
+          <h2 className="text-sm sm:text-base text-accent dark:text-primary font-medium">
+            {trip?.userSelection?.noOfDays} Days trip with a {trip?.userSelection?.budget} Budget
           </h2>
         </div>
       </Link>

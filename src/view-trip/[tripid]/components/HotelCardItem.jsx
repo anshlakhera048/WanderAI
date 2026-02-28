@@ -22,6 +22,8 @@ function HotelCardItem({ hotel, randomImage, index }) {
     });
   };
 
+  console.log('Rendering hotel:', hotel?.hotelName); // Debug log
+
   return (
     <Link
       key={hotel?.id || index}
@@ -30,20 +32,33 @@ function HotelCardItem({ hotel, randomImage, index }) {
       )}`}
       target="_blank"
       rel="noopener noreferrer"
+      className="block"
     >
-      <div className="rounded-xl p-3 hover:scale-105 transition-all cursor-pointer bg-white shadow-sm">
-        <img
-          src={photoUrl || randomImage}
-          alt="Hotel"
-          className="rounded-xl h-[150px] w-full object-cover object-bottom"
-        />
-        <div className="mt-3">
-          <h2 className="font-semibold text-sm md:text-base text-black truncate">
-            🏨 {hotel?.hotelName}
+      <div className="group rounded-xl overflow-hidden border-4 border-primary dark:border-accent bg-white dark:bg-gray-900 shadow-2xl hover:shadow-[0_20px_50px_rgba(99,102,241,0.4)] transition-all duration-300 hover:scale-105">
+        <div className="relative overflow-hidden bg-gray-200 dark:bg-gray-800">
+          <img
+            src={photoUrl || randomImage}
+            alt="Hotel"
+            className="h-[200px] w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        </div>
+        <div className="p-5 space-y-3 bg-white dark:bg-gray-900">
+          <h2 className="font-bold text-lg text-gray-900 dark:text-white line-clamp-2">
+            {hotel?.hotelName}
           </h2>
-          <h2 className="text-xs text-gray-600 truncate">📍 {hotel?.hotelAddress}</h2>
-          <h2 className="text-sm font-medium text-black mt-1">💸 {hotel?.price}</h2>
-          <h2 className="text-sm font-medium text-black">🌟 {hotel?.rating}</h2>
+          <div className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+            <span className="text-primary dark:text-accent flex-shrink-0 text-lg">📍</span>
+            <p className="line-clamp-2">{hotel?.hotelAddress}</p>
+          </div>
+          <div className="flex items-center justify-between pt-3 border-t-2 border-gray-200 dark:border-gray-700">
+            <span className="text-base font-bold text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/30 px-3 py-1 rounded-lg">
+              {hotel?.price}
+            </span>
+            <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/30 px-3 py-1 rounded-lg">
+              <span className="text-yellow-500 text-lg">⭐</span>
+              <span className="text-base font-bold text-gray-900 dark:text-white">{hotel?.rating}</span>
+            </div>
+          </div>
         </div>
       </div>
     </Link>
